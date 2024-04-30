@@ -71,7 +71,7 @@ The Table below demonstrates the result of both full precision and quantized ViT
 | SAR     |  62.7 / 7.0  |      -      |      -      |
 | FOA     |  66.3 / 3.2  | 63.5 / 3.8  | 55.8 / 5.5  |
 
-Please see our [PAPER 🔗]() for more detailed results.
+Please see our [PAPER 🔗](https://arxiv.org/pdf/2404.01650) for more detailed results.
 
 # Correspondence
 
