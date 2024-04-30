@@ -1,5 +1,6 @@
 import torch
 from timm.models.vision_transformer import VisionTransformer
+from dataset.ImageNetMask import imagenet_r_mask
 import torch.nn as nn
 
 def get_vit_featurer(network:VisionTransformer):
@@ -7,17 +8,6 @@ def get_vit_featurer(network:VisionTransformer):
     if hasattr(network, 'head_dist'):
         network.head_dist = None
     return network
-
-def Classifier(in_features, out_features, is_nonlinear=False):
-    if is_nonlinear:
-        return torch.nn.Sequential(
-            torch.nn.Linear(in_features, in_features // 2),
-            torch.nn.ReLU(),
-            torch.nn.Linear(in_features // 2, in_features // 4),
-            torch.nn.ReLU(),
-            torch.nn.Linear(in_features // 4, out_features))
-    else:
-        return torch.nn.Linear(in_features, out_features)
 
 class T3A(torch.nn.Module):
     """
@@ -32,6 +22,10 @@ class T3A(torch.nn.Module):
         warmup_supports = self.classifier.weight.data
         self.warmup_supports = warmup_supports
         warmup_prob = self.classifier(self.warmup_supports)
+
+        if num_classes == 200: # for rendition
+            warmup_prob = warmup_prob[:, imagenet_r_mask]
+        
         self.warmup_ent = softmax_entropy(warmup_prob)
         self.warmup_labels = torch.nn.functional.one_hot(warmup_prob.argmax(1), num_classes=num_classes).float()
 

@@ -26,8 +26,6 @@ from tta_library.t3a import T3A
 from tta_library.foa import FOA
 from tta_library.foa_shift import Shift
 from tta_library.lame import LAME
-from tta_library.foa_interval_v2 import CMA_Collect_Images
-from tta_library.foa_interval_v1 import CMA_Collect_Features
 
 from calibration_library.metrics import ECELoss
 
@@ -203,16 +201,6 @@ if __name__ == '__main__':
         # activation shifting doesn't need to insert prompts 
         net = PromptViT(net, 0).cuda()
         adapt_model = Shift(net)
-        _, train_loader = obtain_train_loader(args)
-        adapt_model.obtain_origin_stat(train_loader)
-    elif args.algorithm == 'foaI_v1':
-        net = PromptViT(net, args.num_prompts).cuda()
-        adapt_model = CMA_Collect_Features(net, args.fitness_lambda)
-        _, train_loader = obtain_train_loader(args)
-        adapt_model.obtain_origin_stat(train_loader)
-    elif args.algorithm == 'foaI_v2':
-        net = PromptViT(net, args.num_prompts).cuda()
-        adapt_model = CMA_Collect_Images(net, args.fitness_lambda)
         _, train_loader = obtain_train_loader(args)
         adapt_model.obtain_origin_stat(train_loader)
     elif args.algorithm == 'foa_bp':
