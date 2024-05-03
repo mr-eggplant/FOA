@@ -111,9 +111,10 @@ class FOA(nn.Module):
                 images = dl[0].cuda()
                 feature = self.model.layers_cls_features(images)
                 features.append(feature)
+                # break
             features = torch.cat(features, dim=0)
             self.train_info = torch.std_mean(features, dim=0)
-
+        del features
         # preparing quantized model for prompt adaptation
         for _, m in self.model.vit.named_modules():
             if type(m) == PTQSLBatchingQuantMatMul:

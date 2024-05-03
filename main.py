@@ -229,6 +229,8 @@ if __name__ == '__main__':
         adapt_model = cotta.CoTTA(net, optimizer, steps=1, episodic=False)
     elif args.algorithm == 'lame':
         adapt_model = LAME(net)
+    elif args.algorithm == 'no_adapt':
+        adapt_model = net
     else:
         assert False, NotImplementedError
 
@@ -245,15 +247,19 @@ if __name__ == '__main__':
 
         val_dataset, val_loader = prepare_test_data(args)
 
+        torch.cuda.empty_cache()
         top1, top5, ece_loss = validate_adapt(val_loader, adapt_model, args)
         logger.info(f"Under shift type {args.corruption} After {args.algorithm} Top-1 Accuracy: {top1:.6f} and Top-5 Accuracy: {top5:.6f} and ECE: {ece_loss:.6f}")
         corrupt_acc.append(top1)
         corrupt_ece.append(ece_loss)
 
         # reset model before adapting on the next domain
-        adapt_model.reset()
+        if args.algorithm == 'no_adapt':
+            continue
+        else:
+            adapt_model.reset()
         
-    logger.info(f'mean acc of corruption: {sum(corrupt_acc)/len(corrupt_acc) if len(corrupt_acc) else 0}')
-    logger.info(f'mean ece of corruption: {sum(corrupt_ece)/len(corrupt_ece) if len(corrupt_ece) else 0}')
-    logger.info(f'corrupt acc list: {[_.item() for _ in corrupt_acc]}')
-    logger.info(f'corrupt ece list: {[_*100 for _ in corrupt_ece]}')
+        logger.info(f'mean acc of corruption: {sum(corrupt_acc)/len(corrupt_acc) if len(corrupt_acc) else 0}')
+        logger.info(f'mean ece of corruption: {sum(corrupt_ece)/len(corrupt_ece) if len(corrupt_ece) else 0}')
+        logger.info(f'corrupt acc list: {[_.item() for _ in corrupt_acc]}')
+        logger.info(f'corrupt ece list: {[_*100 for _ in corrupt_ece]}')
