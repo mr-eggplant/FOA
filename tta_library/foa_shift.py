@@ -19,7 +19,7 @@ import math
 from utils.cli_utils import accuracy, AverageMeter
 from calibration_library.metrics import ECELoss
 from queue import PriorityQueue
-from quant_libary.quant_layers.matmul import *
+from quant_library.quant_layers.matmul import *
 from timm.models.vision_transformer import VisionTransformer
 
 class Shift(nn.Module):
