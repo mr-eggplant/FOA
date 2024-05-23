@@ -17,7 +17,6 @@ class T3A(torch.nn.Module):
         super().__init__()
         self.classifier = model.head
         self.featurizer = get_vit_featurer(model)
-        # self.classifier = Classifier(self.featurizer.norm.normalized_shape[0], num_classes)
 
         warmup_supports = self.classifier.weight.data
         self.warmup_supports = warmup_supports

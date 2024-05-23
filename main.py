@@ -169,7 +169,7 @@ if __name__ == '__main__':
     # create model
     if args.quant:
         # Use PTQ4Vit for model quantization
-        # NOTE the bit of quantization can be modified in quant_lib/configs/PTQ4ViT.py
+        # NOTE the bit of quantization can be modified in quant_library/configs/PTQ4ViT.py
         quant_cfg = init_config("PTQ4ViT")
         net = get_net('vit_base_patch16_224')
         wrapped_modules = net_wrap.wrap_modules_in_net(net,quant_cfg)
@@ -260,6 +260,6 @@ if __name__ == '__main__':
             adapt_model.reset()
         
         logger.info(f'mean acc of corruption: {sum(corrupt_acc)/len(corrupt_acc) if len(corrupt_acc) else 0}')
-        logger.info(f'mean ece of corruption: {sum(corrupt_ece)/len(corrupt_ece) if len(corrupt_ece) else 0}')
+        logger.info(f'mean ece of corruption: {sum(corrupt_ece)/len(corrupt_ece)*100 if len(corrupt_ece) else 0}')
         logger.info(f'corrupt acc list: {[_.item() for _ in corrupt_acc]}')
         logger.info(f'corrupt ece list: {[_*100 for _ in corrupt_ece]}')

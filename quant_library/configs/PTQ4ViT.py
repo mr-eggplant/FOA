@@ -5,7 +5,7 @@ from ..quant_layers.matmul import PTQSLBatchingQuantMatMul, SoSPTQSLBatchingQuan
 no_softmax = False
 no_postgelu = False
 
-bit = 8
+bit = 8 # the bit of quantization
 conv_fc_name_list = ["qconv", "qlinear_qkv", "qlinear_proj", "qlinear_MLP_1", "qlinear_MLP_2", "qlinear_classifier", "qlinear_reduction"]
 matmul_name_list = [ "qmatmul_qk", "qmatmul_scorev"]
 w_bit = {name: bit for name in conv_fc_name_list}
