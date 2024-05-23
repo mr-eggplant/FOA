@@ -23,8 +23,8 @@ from quant_library.quant_layers.matmul import *
 from timm.models.vision_transformer import VisionTransformer
 
 class Shift(nn.Module):
-    """Tent adapts a model by entropy minimization during testing.
-    Once tented, a model adapts itself by updating on every forward.
+    """back-to-source activation shifting in FOA
+    It directly tunes the activations for feature alignment, as efficient as standard forward.
     """
     def __init__(self, model:PromptViT):
         super().__init__()

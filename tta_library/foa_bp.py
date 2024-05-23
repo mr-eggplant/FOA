@@ -12,8 +12,8 @@ import torch.jit
 from models.vpt import PromptViT
 
 class FOA_BP(nn.Module):
-    """Tent adapts a model by entropy minimization during testing.
-    Once tented, a model adapts itself by updating on every forward.
+    """variant of FOA (test-time Forward Optimization Adaptation)
+    FOA-BP uses the same loss as FOA, while it updates norm layers with backpropagation
     """
     def __init__(self,
                 model:PromptViT,

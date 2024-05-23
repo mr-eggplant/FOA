@@ -24,7 +24,7 @@ from quant_library.quant_layers.matmul import *
 RUNNING_IMAGNET_R = False
 
 class FOA(nn.Module):
-    """test-time Forward Only Adaptation
+    """test-time Forward Optimization Adaptation
     FOA devises both input level and output level adaptation.
     It avoids modification to model weights and adapts in a backpropogation-free manner.
     """
