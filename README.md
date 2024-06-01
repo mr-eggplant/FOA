@@ -1,6 +1,6 @@
 # Test-Time Model Adaptation with Only Forward Passes
 
-This is the official project repository for [Test-Time Model Adaptation with Only Forward Passes (ICML 2024)](https://arxiv.org/pdf/2404.01650) by Shuaicheng Niu, Chunyan Miao, Guohao Chen, Pengcheng Wu, Peilin Zhao
+This is the official project repository for [Test-Time Model Adaptation with Only Forward Passes (ICML 2024, Oral)](https://arxiv.org/pdf/2404.01650) by Shuaicheng Niu, Chunyan Miao, Guohao Chen, Pengcheng Wu, Peilin Zhao
 
 * 1️⃣ FOA conducts model learning at test time to adapt a pre-trained model to test data that has distributional shifts ☀️ 🌧 ❄️, such as corruptions, simulation-to-real discrepancies, and other differences between training and testing data.
 * 2️⃣ FOA performs adaptation on both _input_ and _output_ levels, which avoids modification to model parameters and adapts in a backpropagation-free manner. Consequently, FOA offers the following benefits:
